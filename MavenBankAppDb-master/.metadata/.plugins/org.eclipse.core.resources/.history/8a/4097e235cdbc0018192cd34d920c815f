@@ -1,0 +1,29 @@
+package com.capgemini.bankApp.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
+
+import com.capgemini.bankApp.service.FileService;
+
+public class FileServiceImpl implements FileService {
+
+	@Value("${DB_URL}")
+	private String DB_URL;
+	@Value("${USERNAME}")
+	private String USERNAME;
+	@Value("${PASSWORD}")
+	private String PASSWORD;
+	@Value("${path}")
+	private String path;
+	
+	@Autowired
+	private  Environment environment;
+
+	@Override
+	public void readValues() {
+		System.out.println("DB_URL = "+environment.getProperty("DB_URL"));
+		System.out.println("USERNAME = "+environment.getProperty("USERNAME"));
+		System.out.println("PASSWORD = "+environment.getProperty("PASSWORD"));
+	}
+}

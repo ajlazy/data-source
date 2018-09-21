@@ -1,0 +1,31 @@
+package com.capgemini.bankApp;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.capgemini.bankApp.config.AppConfig;
+import com.capgemini.bankApp.controller.BankAccountController;
+import com.capgemini.bankApp.exceptions.LowBalanceException;
+
+public class Application {
+	public static void main(String args[]) {
+		
+		ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+//		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		BankAccountController bankAccountController = context.getBean("bankAccountController",
+				BankAccountController.class);
+
+		System.out.println(bankAccountController.getBalance(1234));
+		try {
+
+			System.out.println("\n" + bankAccountController.getBalance(1235));
+			System.out.println(bankAccountController.withdraw(1235, 1000));
+			System.out.println("\n" + bankAccountController.getBalance(1235) + "\t" + bankAccountController.getBalance(1234));
+			bankAccountController.fundTransfer(1234, 1235, 1000);
+			System.out.println(bankAccountController.getBalance(1235) + "\t" + bankAccountController.getBalance(1234));
+		} catch (LowBalanceException e) {
+			e.printStackTrace();
+		}
+	}
+}

@@ -1,0 +1,5 @@
+package com.cp.spring.beans;
+
+public class MovieLister {
+
+}

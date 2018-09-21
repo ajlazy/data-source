@@ -1,0 +1,5 @@
+package com.capgemini.bankApp.service;
+
+public interface FileService {
+
+}

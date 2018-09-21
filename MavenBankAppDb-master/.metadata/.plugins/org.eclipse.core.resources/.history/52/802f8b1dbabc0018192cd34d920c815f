@@ -1,0 +1,38 @@
+package com.capgemini.bankApp.dbutil;
+
+import java.sql.Connection;
+
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Properties;
+
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+
+
+
+@Configuration
+@PropertySource("classpath: DbUtil.properties")
+public class DbUtil {
+@Value("${DB_URL}")
+	private String DB_URL;
+@Value("${USERNAME}")
+	private String USERNAME;
+@Value("${PASSWORD}")
+	private String PASSWORD ;
+	
+	public static Connection getConnection() {
+
+		Connection connection = null;
+		try {
+			Class.forName(path);
+			connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+		}
+		catch(ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		return connection;
+	}
+}
